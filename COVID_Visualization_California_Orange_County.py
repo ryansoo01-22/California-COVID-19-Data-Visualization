@@ -44,6 +44,7 @@ covid = covid[covid["State"] == "California"]
 covid = covid.set_index("County")
 
 unused_columns = ["UID", "iso2", "iso3", "code3", "FIPS", "Long_", "Lat", "Country_Region", "Combined_Key", "State"]
+#clean up Pandas remove unused columns
 covid = covid.drop(columns=unused_columns)
 
 y_vals = covid.loc['Orange'] #has deaths of Orange county
@@ -51,7 +52,7 @@ y_vals = covid.loc['Orange'] #has deaths of Orange county
 x_vals = covid.loc["Orange"].index
 x_vals = [datetime.strptime(day, '%m/%d/%y') for day in x_vals]
 
-def get_total_deaths(pseries):
+def get_total_deaths(pseries): #CAN BE OPTIMIZED. MAYBE TRY ARRAY PROGRAMMING
     total = 0
     for i in pseries:
         total += i
